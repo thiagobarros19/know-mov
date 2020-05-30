@@ -3,14 +3,17 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 const styles = makeStyles(theme => ({
 
   navbar: {
+    position: 'fixed',
     background: '#21222c',
+    width: '100%',
     height: 80,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingLeft: 50,
-    paddingRight: 50
+    paddingRight: 50,
+    zIndex: 1,
   },
   leftNavbar: {
     display: 'flex',

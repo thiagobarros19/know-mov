@@ -1,11 +1,20 @@
 import React from 'react';
 
-import './styles.css';
+import useStyles from './styles';
 
 import Header from '../../components/Header';
+import FeatureMovie from '../../components/FeatureMovie';
 
 function Home() {
-  return <Header />;
+
+  const classes = useStyles();
+
+  return (
+    <>
+      <Header />
+      <FeatureMovie />
+    </>
+  );
 }
 
 export default Home;

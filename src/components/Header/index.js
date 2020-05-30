@@ -1,7 +1,6 @@
 import React from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import ListIcon from '@material-ui/icons/List';
-// import InputBase from '@material-ui/core/InputBase';
 import { IconButton, InputBase } from '@material-ui/core';
 
 import useStyles from './styles';

@@ -1,20 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import ListIcon from '@material-ui/icons/List';
 import { IconButton, InputBase } from '@material-ui/core';
+import classNames from 'classnames';
 
 import useStyles from './styles';
 
 import logo from '../../assets/logo.png';
+import logoKmWhite from '../../assets/KM White.png';
+import logoKm from '../../assets/KM.png';
 
 function Header() {
 
   const classes = useStyles();
+  const [onTop, setOnTop] = useState(true);
+
+  useEffect(() => {
+    window.onscroll = function() {
+      if(window.pageYOffset === 0) {
+        setOnTop(true);
+      }else{
+        setOnTop(false);
+      }
+    };
+  })
 
   return (
-    <header className={classes.navbar}>
+    <header 
+      className={classNames(classes.navbar, {
+        [classes.navbarNone]: onTop,
+      })} 
+    >
       <div className={classes.leftNavbar}>
-        <img src={logo} className={classes.logoNavbar} alt="MovieDB" />
+        <img src={logoKmWhite} className={classes.logoNavbar} alt="MovieDB" />
 
         <span className={classes.menuListNavbar}>Início</span>
         <span className={classes.menuListNavbar}>Filmes</span>

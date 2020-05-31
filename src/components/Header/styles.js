@@ -4,7 +4,8 @@ const styles = makeStyles(theme => ({
 
   navbar: {
     position: 'fixed',
-    background: '#21222c',
+    background: 'rgba(33,34,44,1)',
+    transition: 'background 200ms',
     width: '100%',
     height: 80,
     display: 'flex',
@@ -14,6 +15,10 @@ const styles = makeStyles(theme => ({
     paddingLeft: 50,
     paddingRight: 50,
     zIndex: 1,
+  },
+  navbarNone:{
+    background: 'linear-gradient(180deg, rgba(0,0,0,0.8), rgba(0,0,0,0))',
+    transition: 'background 450ms',
   },
   leftNavbar: {
     display: 'flex',

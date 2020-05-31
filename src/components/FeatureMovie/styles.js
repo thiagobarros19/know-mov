@@ -1,12 +1,9 @@
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const styles = makeStyles(theme => ({
 
   featureMovie: {
-    //background
-    position:"absolute",
-    top: 0,
-    height: '80%',
+    height: '70vh',
     width: '100%',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',

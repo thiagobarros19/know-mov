@@ -3,9 +3,10 @@ import React from 'react';
 import useStyles from '../styles';
 import Img from '../../../assets/arrow.png';
 
-function SliderElement(){
+function SliderElement({ element }){
 
   const classes = useStyles();
+  console.log(element)
 
  return (
     <div className={classes.item} style={{backgroundImage: `url(${Img})`}}>

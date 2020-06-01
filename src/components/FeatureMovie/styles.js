@@ -15,7 +15,7 @@ const styles = makeStyles(theme => ({
     alignItems: 'flex-end',
     width: '100%',
     height: '100%',
-    background: 'linear-gradient(45deg, rgba(0,0,0,0.7), rgba(0,0,0,0))',
+    background: 'linear-gradient(45deg, rgba(0,0,0,0.9), rgba(0,0,0,0))',
   },
   featureMovieDetail: {
     display: 'flex',
@@ -41,12 +41,23 @@ const styles = makeStyles(theme => ({
     width: '100%',
     marginTop: 15
   },
+  featureMovieRatingContainer: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: 15,
+    width: '100%'
+  },
   featureMovieRating: {
     fontSize: 18,
     display: 'flex',
     justifyContent: 'left',
-    width: '100%',
-    marginTop: 15
+    marginRight: 15
+  },
+  featureMovieRatingCircle: {
+    display: 'flex',
+    justifyContent: 'left',
   },
   featureMovieSynopsis: {
     fontSize: 30,

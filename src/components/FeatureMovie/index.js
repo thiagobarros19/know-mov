@@ -1,26 +1,67 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Circle from 'react-circle';
+import consts from '../../consts';
 
 import useStyles from './styles';
 
-import Img from '../../assets/arrow.png';
+function FeatureMovie(props) {
 
-function FeatureMovie() {
+  const [genres, setGenres] = useState([]);
+
+  const { 
+    popularity,
+    title,
+    release_date,
+    genre_ids,
+    backdrop_path,
+    poster_path,
+    adult,
+    overview,
+    vote_average
+  } = props.movie;
+
+  useEffect(() => {
+    let data = [];
+    if(props.genre && genre_ids){
+      data = props.genre.filter( genre => {
+        return genre_ids.includes(genre.id);
+      });
+    }
+    
+    setGenres(data);
+  }, [props.genre, genre_ids])
+
+  let releaseDate = release_date ? release_date.substring(0, release_date.indexOf('-')) : '';
+  let userScore = vote_average * 10;
 
   const classes = useStyles();
 
   return (
-    <div className={classes.featureMovie} style={{backgroundImage: `url(${Img})`}}>
+    <div className={classes.featureMovie} style={{backgroundImage: `url(${consts.API_IMAGE_URL}${backdrop_path})`}}>
       <div className={classes.featureMovieShadow}>
         <div className={classes.featureMovieDetail}>
-          <span className={classes.featureMovieTitle}>Arrow (2012)</span>
-          <span className={classes.featureMovieGenre}>Crime, Drama, Mystery, Action, Adventure</span>
-          <span className={classes.featureMovieRating}>User Score</span>
-          <span className={classes.featureMovieSynopsis}>
-            <span className={classes.featureMovieSynopsisTitle}>Overview</span>
-            <span className={classes.featureMovieSynopsisDescription}>
-              Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a bow.
-            </span>
-          </span>
+          <span className={classes.featureMovieTitle}>{title} ({releaseDate})</span>
+          <span className={classes.featureMovieGenre}>{genres.map(genres => genres.name).join(', ')}</span>
+          <div className={classes.featureMovieRatingContainer}>
+            <span className={classes.featureMovieRating}>Avaliação dos usuários</span>
+            <Circle 
+              className={classes.featureMovieRatingCircle}
+              progress={userScore}
+              animate={true}
+              size={50}
+              lineWidth={35}
+              progressColor={'#008080'}
+              bgColor={'#fff'}
+              textColor={'#fff'}
+              textStyle={{ 
+                font: 'bold 6rem Roboto, sans-serif' // CSSProperties: Custom styling for percentage.
+              }}
+            />
+          </div>
+          <div className={classes.featureMovieSynopsis}>
+            <span className={classes.featureMovieSynopsisTitle}>Sinópse</span>
+            <span className={classes.featureMovieSynopsisDescription}>{overview}</span>
+          </div>
         </div>
       </div>
     </div>

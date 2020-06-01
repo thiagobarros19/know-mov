@@ -5,7 +5,7 @@ const styles = makeStyles(theme => ({
   navbar: {
     position: 'fixed',
     background: 'rgba(33,34,44,1)',
-    transition: 'background 200ms',
+    transition: 'background 300ms',
     width: '100%',
     height: 80,
     display: 'flex',
@@ -18,7 +18,7 @@ const styles = makeStyles(theme => ({
   },
   navbarNone:{
     background: 'linear-gradient(180deg, rgba(0,0,0,0.8), rgba(0,0,0,0))',
-    transition: 'background 450ms',
+    transition: 'background 550ms',
   },
   leftNavbar: {
     display: 'flex',
@@ -41,7 +41,6 @@ const styles = makeStyles(theme => ({
     cursor: 'pointer',
     '&:hover': {
       color: fade(theme.palette.common.white, 0.7),
-      textDecoration: 'underline',
     },
   },
   searchBar: {

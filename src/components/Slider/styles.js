@@ -18,7 +18,7 @@ const styles = makeStyles(theme => ({
     height: 150,
     transition: 'transform 250ms ease 350ms',
     '&:hover': {
-      transform: 'scale(1.5) !important',
+      // transform: 'scale(1.5) !important',
       '$:div':{
         display: 'flex !important',
       }

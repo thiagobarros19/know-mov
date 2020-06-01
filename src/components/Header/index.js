@@ -6,9 +6,9 @@ import classNames from 'classnames';
 
 import useStyles from './styles';
 
-import logo from '../../assets/logo.png';
+// import logo from '../../assets/logo.png';
 import logoKmWhite from '../../assets/KM White.png';
-import logoKm from '../../assets/KM.png';
+// import logoKm from '../../assets/KM.png';
 
 function Header() {
 

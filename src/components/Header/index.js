@@ -65,7 +65,6 @@ function Header() {
     
     api.get(consts.GENRE_URL).then(response => {
       setGenres(response.data.genres)
-      console.log("Gêneros", response.data.genres)
     }).catch( err =>{
       console.log(err)
     })

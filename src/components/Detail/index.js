@@ -34,7 +34,6 @@ function Detail({ movieId }) {
 
 
   useEffect(() => {
-    console.log(!Object.keys(movie).length)
     
       api.get(`/movie/${id}${consts.GET_MOVIE_ID}`).then(response => {
         setMovie(response.data);

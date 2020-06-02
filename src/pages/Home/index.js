@@ -41,6 +41,7 @@ function Home() {
 
   useEffect(() => {
     api.get(consts.POPULAR_URL).then(response => {
+      console.log(response.data)
       setPopular(response.data);
     }).catch( err =>{
       console.log(err)

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import consts from '../../consts';
 
@@ -8,16 +8,15 @@ import action from '../../actions'
 import useStyles from './styles';
 import { useDispatch } from 'react-redux';
 
-import Header from '../../components/Header';
 import FeatureMovie from '../../components/FeatureMovie';
 import Slider from '../../components/Slider';
 
-
-function Home() {
+function HomePage() {
   const [feature, setFeature] = useState({});
   const [popular, setPopular] = useState({});
   const [tendencies, setTendencies] = useState({});
   const [topRated, setTopRated] = useState({});
+  const [featureMovieIndex, setFeatureMovieIndex] = useState(null);
   
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -37,7 +36,7 @@ function Home() {
     }).catch( err =>{
       console.log(err)
     })
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     api.get(consts.POPULAR_URL).then(response => {
@@ -64,13 +63,13 @@ function Home() {
     })
   }, []);
 
-  const featureMovieIndex = Math.floor((Math.random() * 20));
-
+  useEffect(() => {
+    setFeatureMovieIndex(Math.floor((Math.random() * 20)))
+  }, []);
 
   return (
     <>
-      <Header />
-      <FeatureMovie movie={topRated.results ? topRated.results[featureMovieIndex] : []} />
+      <FeatureMovie movie={topRated.results && featureMovieIndex ? topRated.results[featureMovieIndex] : []} />
 
       <div className={classes.genreContainer}>
         <span className={classes.genreTitle}>Adicionados recentemente</span>
@@ -81,12 +80,12 @@ function Home() {
         <span className={classes.genreTitle}>Em alta</span>
       </div>
       <Slider elements={topRated.results || []} />
-
+      
       <div className={classes.genreContainer}>
         <span className={classes.genreTitle}>Tendências</span>
       </div>
       <Slider elements={tendencies.results || []} />
-
+      
       <div className={classes.genreContainer}>
         <span className={classes.genreTitle}>Populares</span>
       </div>
@@ -95,4 +94,5 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomePage;
+

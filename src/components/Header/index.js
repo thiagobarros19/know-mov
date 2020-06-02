@@ -4,8 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
 import ListIcon from '@material-ui/icons/List';
-import { IconButton, InputBase, List, ListItem, ListItemSecondaryAction, ListItemText, Checkbox, Popover, Paper} from '@material-ui/core';
-import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
+import { IconButton, InputBase, List, ListItem, ListItemSecondaryAction, ListItemText, Checkbox} from '@material-ui/core';
 import classNames from 'classnames';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import useStyles from './styles';
@@ -15,7 +14,8 @@ import logoKmWhite from '../../assets/KM White.png';
 import api from '../../services/api';
 import consts from '../../consts';
 import action from '../../actions'
-
+import 'rc-menu/assets/index.css';
+import Tooltip from 'react-power-tooltip'
 
 function Header() {
 
@@ -32,7 +32,13 @@ function Header() {
 
   const [checked, setChecked] = React.useState([1]);
 
-  const handleToggle = (value) => () => {
+  const [show, setShow] = React.useState(false);
+
+  const showTooltip = bool => {
+   setShow(bool)
+  }
+
+  const handleGender= (value) => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
@@ -117,11 +123,16 @@ function Header() {
         <span className={classes.menuListNavbar}>TV Shows</span>
       </div>
 
+    
+      
+
       <div className={classes.rightNavbar}>
         <div className={classes.searchBar}>
           <div className={classes.searchIcon}>
             <SearchIcon />
           </div>
+
+      
 
           <Autocomplete
             value={value}
@@ -159,57 +170,55 @@ function Header() {
 
         <div className={classes.filterIcon}>
 
-          <PopupState variant="popover" popupId="demo-popup-popover">
-            {(popupState) => (
-              <div>
-
-                <IconButton  {...bindTrigger(popupState)}>
+        <div 
+        style={{ position: 'relative' }}
+        onMouseOver={() => showTooltip(true)} 
+        onMouseLeave={() => showTooltip(false)}
+        className={classes.listCategory}
+        >
+          <IconButton >
                   <ListIcon style={{ color: '#fff', fontSize: 35 }} />
                 </IconButton>
-                <Popover
-                  {...bindPopover(popupState)}
-
-                  className={classes.popover}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
+                
+                <Tooltip 
+                  
+                  show={show}
+                  arrowAlign="end"
+                  position="bottom center"
+                  lineSeparated
+                  className={classes.tooltip}
+                  textBoxWidth={'225px'}
+                  hoverBackground="none"
+                  backgroundColor="rgba(0,0,0,0.5)"
+                  hoverColor="#FFF"
+                  color="#FFF"
                 >
-
-
-                  <Paper className={classes.popoverBox}>
-                    <List dense className={classes.root}>
+                  
+                    <List className={classes.root}>
                       {genres.map((value) => {
                         const labelId = `checkbox-list-secondary-label-${value.name}`;
                         return (
-                          <ListItem key={value.id} button>
+                          <ListItem onClick={handleGender(value.id)} dense className={classes.listItem} key={value.id} >
                             <ListItemText id={labelId} primary={value.name} />
                             <ListItemSecondaryAction>
                               <Checkbox
-                                edge="end"
-                                onChange={handleToggle(value.id)}
+                                
+                                onChange={handleGender(value.id)}
                                 checked={checked.indexOf(value.id) !== -1}
                                 inputProps={{ 'aria-labelledby': labelId }}
-                                style={{ color: "white" }}
+                                style={{ color: "white", alignSelf:'center' }}
+                                className={classes.checkBox}
                               />
                             </ListItemSecondaryAction>
                           </ListItem>
                         );
                       })}
                     </List>
-                  </Paper>
+                  
+                </Tooltip>
 
+        </div>
 
-                </Popover>
-
-
-              </div>
-            )}
-          </PopupState>
 
         </div>
 

@@ -8,6 +8,7 @@ export default {
   API_TOKEN: API.API_TOKEN,
   API_URL: 'https://api.themoviedb.org/3',
   API_IMAGE_URL: 'https://image.tmdb.org/t/p/original',
+  API_IMAGE_URL_SMALL: 'https://image.tmdb.org/t/p/w500',
   GET_MOVIE_ID: `?api_key=${API.API_KEY}&language=pt-BR`,
   GENRE_URL: `/genre/movie/list?api_key=${API.API_KEY}&language=pt-BR`,
   FEATURE_URL: `/movie/upcoming?api_key=${API.API_KEY}&language=pt-BR`,

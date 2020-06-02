@@ -97,17 +97,30 @@ const styles = makeStyles(theme => ({
       color: fade(theme.palette.common.white, 0.25),
     },
   },
-  popover:{
-    backgroundColor: 'transparent',
-    opacity:0.7,
+  tooltip:{
+    backgroundColor: 'yellow',
+    //opacity:0.7,
     boxShadow: 'none',
-
+    width:"500px"
   },
   popoverBox:{
     backgroundColor: fade(theme.palette.common.black, 1),
     color:"white"
+  },
+  checkBox:{
+    marginTop:'5px'
+  },
+  listItem:{
+    width:"100%",
+    '&:hover ': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+  },
+  root:{
+    overflow: 'auto',
+    height:'50vh',
+    maxHeight: 350,
   }
-
 
 }))
 

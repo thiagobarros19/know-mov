@@ -44,7 +44,7 @@ function SliderElement({ element }) {
   return (
 
     <span onClick={() => handleClick()} >
-      <div className={classes.item} style={{ backgroundImage: `url(${consts.API_IMAGE_URL}${backdrop_path})` }}>
+      <div className={classes.item} style={{ backgroundImage: `url(${consts.API_IMAGE_URL_SMALL}${backdrop_path})` }}>
         <div className={classes.itemInnerShadow}>
           <div className={classes.itemInfoContainer}>
             <span className={classes.featureMovieTitle}>{title} ({releaseDate})</span>

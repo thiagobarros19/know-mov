@@ -16,11 +16,12 @@ const styles = makeStyles(theme => ({
     textAlign: 'center',
     margin: '0 5px',
     height: 150,
-    transition: 'transform 250ms ease 350ms',
+    transition: 'transform 250ms ease 150ms',
     '&:hover': {
-      // transform: 'scale(1.5) !important',
-      '$:div':{
-        display: 'flex !important',
+      //transform: 'scale(1.5) !important',
+      '& div':{
+        opacity: '1 !important',
+        cursor: 'pointer'
       }
     },
     '&:hover ~ &': {
@@ -31,12 +32,14 @@ const styles = makeStyles(theme => ({
     backgroundPosition: 'center',
   },
   itemInnerShadow: {
-    display: 'none',
+    display: 'flex',
     justifyContent: 'left',
     alignItems: 'flex-end',
     width: '100%',
     height: '100%',
-    background: 'linear-gradient(45deg, rgba(0,0,0,0.5), rgba(0,0,0,0))',
+    background: 'linear-gradient(45deg, rgba(0,0,0,1), rgba(0,0,0,0))',
+    opacity: 0,
+    transition: 'opacity 250ms ease 10ms',
   },
   itemInfoContainer: {
     display: 'flex',
@@ -46,6 +49,7 @@ const styles = makeStyles(theme => ({
     padding: 5,
     color: '#fff',
     fontSize: 15,
+    textDecoration: 'none'
   },
   featureMovieTitle: {
     fontSize: 15,
@@ -53,6 +57,7 @@ const styles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'left',
     width: '100%',
+    textDecoration: 'none'
   },
   featureMovieGenre: {
     fontSize: 12,

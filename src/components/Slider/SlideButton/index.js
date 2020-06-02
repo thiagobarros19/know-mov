@@ -1,6 +1,4 @@
 import React from 'react';
-// import IconArrowDown from './../Icons/IconArrowDown'
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import useStyles from './styles';

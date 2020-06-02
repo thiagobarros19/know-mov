@@ -39,6 +39,7 @@ const styles = makeStyles(theme => ({
     fontWeight: 'bold',
     marginLeft: 20,
     cursor: 'pointer',
+    textDecoration: 'none',
     '&:hover': {
       color: fade(theme.palette.common.white, 0.7),
     },
@@ -65,7 +66,7 @@ const styles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    color: '#fff'
+    color: '#fff',
   },
   inputRoot: {
     color: 'inherit',
@@ -74,7 +75,7 @@ const styles = makeStyles(theme => ({
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
-    width: '100%',
+    width: '500px',
     color: '#fff',
     [theme.breakpoints.up('sm')]: {
       width: '18ch',
@@ -85,7 +86,28 @@ const styles = makeStyles(theme => ({
   },
   filterIcon: {
     marginLeft: 15,
+  },
+  autocompletePaper:{
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+  
+  },
+  autocompleteListbox:{
+    color:"#FFF",
+    '&:hover &': {
+      color: fade(theme.palette.common.white, 0.25),
+    },
+  },
+  popover:{
+    backgroundColor: 'transparent',
+    opacity:0.7,
+    boxShadow: 'none',
+
+  },
+  popoverBox:{
+    backgroundColor: fade(theme.palette.common.black, 1),
+    color:"white"
   }
+
 
 }))
 

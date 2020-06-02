@@ -1,18 +1,17 @@
 import React from 'react';
 
-import useStyles from './styles';
-
+import { useParams} from "react-router-dom";
 import Header from '../../components/Header';
 import Detail from '../../components/Detail';
 
 function MovieDetail() {
-
-  const classes = useStyles();
+  
+  const { id } = useParams();
 
   return (
     <>
       <Header />
-      <Detail />
+      <Detail movieId={id} />
     </>
   );
 }

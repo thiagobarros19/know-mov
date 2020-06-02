@@ -3,8 +3,10 @@ import React, { useEffect, useState } from 'react';
 import consts from '../../consts';
 
 import api from '../../services/api';
+import action from '../../actions'
 
 import useStyles from './styles';
+import { useDispatch } from 'react-redux';
 
 import Header from '../../components/Header';
 import FeatureMovie from '../../components/FeatureMovie';
@@ -13,11 +15,11 @@ import Slider from '../../components/Slider';
 
 function Home() {
   const [feature, setFeature] = useState({});
-  const [genre, setGenre] = useState({});
   const [popular, setPopular] = useState({});
-  const [latest, setLatest] = useState({});
+  const [tendencies, setTendencies] = useState({});
   const [topRated, setTopRated] = useState({});
-
+  
+  const dispatch = useDispatch();
   const classes = useStyles();
 
 
@@ -31,7 +33,7 @@ function Home() {
 
   useEffect(() => {
     api.get(consts.GENRE_URL).then(response => {
-      setGenre(response.data);
+      dispatch(action.addGenre(response.data.genres))
     }).catch( err =>{
       console.log(err)
     })
@@ -46,8 +48,8 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    api.get(consts.LATEST_URL).then(response => {
-      setLatest(response.data);
+    api.get(consts.TRENDS_URL).then(response => {
+      setTendencies(response.data);
     }).catch( err =>{
       console.log(err)
     })
@@ -61,12 +63,13 @@ function Home() {
     })
   }, []);
 
+  const featureMovieIndex = Math.floor((Math.random() * 20));
 
 
   return (
     <>
       <Header />
-      <FeatureMovie movie={topRated.results ? topRated.results[0] : []} genre={genre.genres ? genre.genres : []} />
+      <FeatureMovie movie={topRated.results ? topRated.results[featureMovieIndex] : []} />
 
       <div className={classes.genreContainer}>
         <span className={classes.genreTitle}>Adicionados recentemente</span>
@@ -76,17 +79,17 @@ function Home() {
       <div className={classes.genreContainer}>
         <span className={classes.genreTitle}>Em alta</span>
       </div>
-      <Slider elements={popular.results || []} />
+      <Slider elements={topRated.results || []} />
 
       <div className={classes.genreContainer}>
-        <span className={classes.genreTitle}>Lançamentos</span>
+        <span className={classes.genreTitle}>Tendências</span>
       </div>
-      <Slider elements={popular.results || []} />
+      <Slider elements={tendencies.results || []} />
 
       <div className={classes.genreContainer}>
-        <span className={classes.genreTitle}>Originais</span>
+        <span className={classes.genreTitle}>Populares</span>
       </div>
-      <Slider elements={popular.results || []} />
+      <Slider elements={feature.results || []} />
     </>
   );
 }

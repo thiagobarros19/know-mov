@@ -1,40 +1,117 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
 import ListIcon from '@material-ui/icons/List';
-import { IconButton, InputBase } from '@material-ui/core';
+import { IconButton, InputBase, List, ListItem, ListItemSecondaryAction, ListItemText, Checkbox, Popover, Paper} from '@material-ui/core';
+import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
 import classNames from 'classnames';
-
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import useStyles from './styles';
-
 // import logo from '../../assets/logo.png';
 import logoKmWhite from '../../assets/KM White.png';
 // import logoKm from '../../assets/KM.png';
+import api from '../../services/api';
+import consts from '../../consts';
+import action from '../../actions'
+
 
 function Header() {
 
   const classes = useStyles();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [onTop, setOnTop] = useState(true);
+  const [inputValue, setInputValue] = React.useState('');
+  const [value, setValue] = React.useState('');
+  const [options, setOptions] = React.useState([]);
+  const [movies, setMovies] = React.useState({});
+  const [genres, setGenres] = useState([]);
+
+  const [checked, setChecked] = React.useState([1]);
+
+  const handleToggle = (value) => () => {
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setChecked(newChecked);
+  };
 
   useEffect(() => {
-    window.onscroll = function() {
-      if(window.pageYOffset === 0) {
+    window.onscroll = function () {
+      if (window.pageYOffset === 0) {
         setOnTop(true);
-      }else{
+      } else {
         setOnTop(false);
       }
     };
   })
 
+  useEffect(() => {
+    
+    api.get(consts.GENRE_URL).then(response => {
+      setGenres(response.data.genres)
+      console.log("Gêneros", response.data.genres)
+    }).catch( err =>{
+      console.log(err)
+    })
+  }, []);
+
+
+  const search = (newInputValue) => {
+    if (newInputValue !== '') {
+      api.get(consts.SEARCH_MOVIE, {
+        params: {
+          query: newInputValue,
+          page: 1,
+          include_adult: false
+        }
+      }).then(response => {
+
+        const moviesName = response.data.results.map(value => value.name || value.original_title || value.original_name)
+        setOptions(moviesName.slice(0, 10))
+        setMovies(response.data.results.slice(0, 10))
+
+      }).catch(err => {
+        console.log(err)
+      })
+
+    } else {
+      setOptions([])
+    }
+
+    setInputValue(newInputValue);
+  }
+
+  const handleMovie = (movieName) => {
+    let element = movies.find(movie => movie.name === movieName || movie.original_title === movieName || movie.original_name === movieName)
+    if (element) {
+      dispatch(action.addMovie(element))
+      navigate(`/detail/${element.id}`)
+    }
+    setValue(movieName);
+  }
+
+
+
   return (
-    <header 
+    <header
       className={classNames(classes.navbar, {
         [classes.navbarNone]: onTop,
-      })} 
+      })}
     >
       <div className={classes.leftNavbar}>
-        <img src={logoKmWhite} className={classes.logoNavbar} alt="MovieDB" />
+        <Link to="/"><img src={logoKmWhite} className={classes.logoNavbar} alt="MovieDB" /></Link>
 
-        <span className={classes.menuListNavbar}>Início</span>
+        <Link to="/" className={classes.menuListNavbar}>Início</Link>
         <span className={classes.menuListNavbar}>Filmes</span>
         <span className={classes.menuListNavbar}>Séries</span>
         <span className={classes.menuListNavbar}>TV Shows</span>
@@ -45,23 +122,102 @@ function Header() {
           <div className={classes.searchIcon}>
             <SearchIcon />
           </div>
-          <InputBase
-            placeholder="Buscar título..."
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
+
+          <Autocomplete
+            value={value}
+            onChange={(event, newValue) => {
+              handleMovie(newValue)
             }}
-            inputProps={{ 'aria-label': 'search' }}
+            inputValue={inputValue}
+            onInputChange={(event, newInputValue) => {
+              search(newInputValue);
+            }}
+            limitTags={1}
+            id="controllable-states-demo"
+            options={options}
+            classes={{
+              paper: classes.autocompletePaper,
+              listbox: classes.autocompleteListbox
+            }}
+            disableListWrap
+            selectOnFocus
+            clearOnBlur
+            handleHomeEndKeys
+            renderInput={(params) => <InputBase
+              placeholder="Buscar título..."
+              {...params}
+              ref={options.length ? params.InputProps.ref : null}
+              classes={{
+                input: classes.inputInput,
+              }}
+            />}
+
+
           />
+
         </div>
+
         <div className={classes.filterIcon}>
-          <IconButton>
-            <ListIcon style={{ color: '#fff', fontSize: 35}} />
-          </IconButton>
+
+          <PopupState variant="popover" popupId="demo-popup-popover">
+            {(popupState) => (
+              <div>
+
+                <IconButton  {...bindTrigger(popupState)}>
+                  <ListIcon style={{ color: '#fff', fontSize: 35 }} />
+                </IconButton>
+                <Popover
+                  {...bindPopover(popupState)}
+
+                  className={classes.popover}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                >
+
+
+                  <Paper className={classes.popoverBox}>
+                    <List dense className={classes.root}>
+                      {genres.map((value) => {
+                        const labelId = `checkbox-list-secondary-label-${value.name}`;
+                        return (
+                          <ListItem key={value.id} button>
+                            <ListItemText id={labelId} primary={value.name} />
+                            <ListItemSecondaryAction>
+                              <Checkbox
+                                edge="end"
+                                onChange={handleToggle(value.id)}
+                                checked={checked.indexOf(value.id) !== -1}
+                                inputProps={{ 'aria-labelledby': labelId }}
+                                style={{ color: "white" }}
+                              />
+                            </ListItemSecondaryAction>
+                          </ListItem>
+                        );
+                      })}
+                    </List>
+                  </Paper>
+
+
+                </Popover>
+
+
+              </div>
+            )}
+          </PopupState>
+
         </div>
+
+
       </div>
     </header>
   );
 }
 
 export default Header;
+

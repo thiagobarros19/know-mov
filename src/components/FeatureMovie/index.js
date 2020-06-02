@@ -1,37 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import Circle from 'react-circle';
 import consts from '../../consts';
-
+import { useSelector } from 'react-redux';
 import useStyles from './styles';
 
 function FeatureMovie(props) {
 
-  const [genres, setGenres] = useState([]);
+  const allGenres = useSelector(state => state.genre.genre)
+  const [genres, setGenres] = useState([])
 
   const { 
-    popularity,
+  //  popularity,
     title,
     release_date,
     genre_ids,
     backdrop_path,
-    poster_path,
-    adult,
+  //  poster_path,
+  //  adult,
     overview,
     vote_average
   } = props.movie;
 
   useEffect(() => {
-    let data = [];
-    if(props.genre && genre_ids){
-      data = props.genre.filter( genre => {
-        return genre_ids.includes(genre.id);
-      });
+    if(allGenres.length && genre_ids){
+      let data = allGenres.filter(genre => {
+        return genre_ids.includes(genre.id)
+      }).map(genre => genre.name)
+      setGenres(data)
     }
-    
-    setGenres(data);
-  }, [props.genre, genre_ids])
+  },[allGenres, genre_ids])
 
-  let releaseDate = release_date ? release_date.substring(0, release_date.indexOf('-')) : '';
+  let releaseDate = release_date ? release_date.substring(0, release_date.indexOf('-')) : null;
   let userScore = vote_average * 10;
 
   const classes = useStyles();
@@ -40,8 +39,8 @@ function FeatureMovie(props) {
     <div className={classes.featureMovie} style={{backgroundImage: `url(${consts.API_IMAGE_URL}${backdrop_path})`}}>
       <div className={classes.featureMovieShadow}>
         <div className={classes.featureMovieDetail}>
-          <span className={classes.featureMovieTitle}>{title} ({releaseDate})</span>
-          <span className={classes.featureMovieGenre}>{genres.map(genres => genres.name).join(', ')}</span>
+          <span className={classes.featureMovieTitle}>{title} {releaseDate ? `(${releaseDate})` : ''}</span>
+          <span className={classes.featureMovieGenre}>{genres.join(', ')}</span>
           <div className={classes.featureMovieRatingContainer}>
             <span className={classes.featureMovieRating}>Avaliação dos usuários</span>
             <Circle 

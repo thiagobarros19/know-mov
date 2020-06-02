@@ -12,8 +12,7 @@ const styles = makeStyles(theme => ({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#fff',
-  }
-
+  },
 }))
 
 export default styles;

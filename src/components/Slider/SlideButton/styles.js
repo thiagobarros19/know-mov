@@ -11,14 +11,18 @@ const styles = makeStyles(theme => ({
       border: 0,
       outline: 0,
       padding: 0,
-      zIndex: 4,
+      transition: 'transform 350ms',
       '& span': {
         width: '25px',
         color: '#fff',
         display: 'block',
         margin: '0 auto',
       },
-     
+      '&:hover':{
+        '& span': {
+          transform: 'scale(1.5)'
+        }
+      }
     },
     next: {
         right: 0,

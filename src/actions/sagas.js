@@ -8,14 +8,23 @@ function* addMovieWatcher(data){
     yield takeLatest("ADD_MOVIE", addMovie(data));
 }
 
-const addGenre = function* (data){
-    yield put({ type: 'ADD_GENRES', genre: data });
+const addGenreTv = function* (data){
+    yield put({ type: 'ADD_GENRES_TV', genre: data });
 }
 
-function* addGenreWatcher(data){
-    yield takeLatest("ADD_GENRES", addGenre(data));
+function* addGenreWatcherTv(data){
+    yield takeLatest("ADD_GENRES_TV", addGenreTv(data));
+}
+
+
+const addGenreMovie = function* (data){
+    yield put({ type: 'ADD_GENRES_MOVIE', genre: data });
+}
+
+function* addGenreWatcherMovie(data){
+    yield takeLatest("ADD_GENRES_MOVIE", addGenreMovie(data));
 }
 
 export default function* rootSaga(){
-    yield all([addMovieWatcher, addGenreWatcher]);
+    yield all([addMovieWatcher, addGenreWatcherTv, addGenreWatcherMovie]);
 }

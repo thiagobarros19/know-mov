@@ -5,49 +5,38 @@ import { useSelector} from 'react-redux';
 import api from '../../services/api';
 import ImageNotFound from '../../assets/notfound.png'
 import useStyles from './styles';
+import Season from '../Season'
+import {Typography} from '@material-ui/core'
+import classNames from 'classnames';
 
-function Detail({ movieId }) {
+function Detail({ movieId, media_type }) {
 
   const classes = useStyles();
 
   const [movie, setMovie] = useState(useSelector(state => state.movie.movie));
-  const [genres, setGenres] = useState([]);
-
   const id = movieId;
 
-  useEffect(() => {
-    
-    api.get(consts.GENRE_URL).then(response => {
-      setGenres(response.data.genres)
-    }).catch( err =>{
-      console.log(err)
-    })
-  }, []);
+  const  {API_KEY,API_LANGUAGE} = consts
 
-  
-
-  const getGenres = () =>{
-    return genres.filter(genre => {
-      return movie.genres ? movie.genres.map(genreMovie => genreMovie.id).includes(genre.id) : null
-    }).map(genre => genre.name)
-  }
-
+  console.log(movieId,media_type)
 
   useEffect(() => {
-    
-      api.get(`/movie/${id}${consts.GET_MOVIE_ID}`).then(response => {
+      api.get(`/${media_type}/${id}${API_KEY}${API_LANGUAGE}`).then(response => {
         setMovie(response.data);
       }).catch( err =>{
         console.log(err)
       }) 
-  }, [id]);
+  }, [id,media_type,API_KEY,API_LANGUAGE]);
 
   let releaseDate = movie.release_date ? movie.release_date.substring(0, movie.release_date.indexOf('-')) : '';
   let userScore = movie.vote_average * 10;
 
   return (
-    
-    <div className={classes.background} style={{backgroundImage: `url(${consts.API_IMAGE_URL}${movie.backdrop_path})`}}>
+    <div className={classes.root}>
+    <div className={classNames(classes.backgroundMovie, {
+      [classes.backgroundTv]: media_type === 'tv',
+    })}
+    style={{backgroundImage: `url(${consts.API_IMAGE_URL}${movie.backdrop_path})`}}>
 
       <div className={classes.backgroundShadow}>
         <div className={classes.container}>
@@ -59,13 +48,13 @@ function Detail({ movieId }) {
           </div>
           <div className={classes.movieDetail}>
             <span className={classes.movieTitle}>{movie.title} {releaseDate ? `(${releaseDate})` : ''}</span>
-            <span className={classes.movieGenre}>{getGenres().join(', ')}</span>
+            <span className={classes.movieGenre}>{movie.genres ? movie.genres.map(m => m.name).join(', ') : ''}</span>
             {movie.vote_average !== 0 && 
               <div className={classes.movieRatingContainer}>
                 <span className={classes.movieRating}>Avaliação dos usuários</span>
                 <Circle 
                   className={classes.movieRatingCircle}
-                  progress={userScore}
+                  progress={userScore || 0}
                   animate={true}
                   size={50}
                   lineWidth={35}
@@ -77,7 +66,7 @@ function Detail({ movieId }) {
                   }}
                 />
             </div>}
-            {movie.overview &&
+            {movie.overview && 
               <div className={classes.movieSynopsis}>
                 <span className={classes.movieSynopsisTitle}>Sinópse</span>
                 <span className={classes.movieSynopsisDescription}>
@@ -87,6 +76,10 @@ function Detail({ movieId }) {
           </div>
         </div>
       </div>
+    </div>
+    {movie.seasons && <Typography className={classes.seasonTitle}>Temporadas</Typography>}
+ 
+    {media_type === 'tv' && <Season seasons={movie.seasons || []}/>}
     </div>
   );
 }

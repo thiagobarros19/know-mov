@@ -2,11 +2,10 @@ import React from 'react';
 import { BrowserRouter, Routes as Rts, Route } from "react-router-dom";
 
 import KnowMov from './pages/KnowMov';
-import HomePage from './pages/HomePage';
+import HomePage from './pages/KnowMov/HomePage';
 import MovieDetail from './pages/MovieDetail';
-// import Movies from './pages/Movies';
-// import Actors from './pages/Actors';
-// import TvShows from './pages/TvShows';
+import Movies from './pages/KnowMov/Movies';
+import TvShows from './pages/KnowMov/TvShows';
 
 function Routes() {
   return(
@@ -14,8 +13,10 @@ function Routes() {
       <Rts>
         <Route path="/"  element={<KnowMov/>}>
           <Route path="/"  element={<HomePage/>} />
+          <Route path="/movies"  element={<Movies/>} />
+          <Route path="/tvshows"  element={<TvShows/>} />
         </Route>
-        <Route path="/detail/:id" element={<MovieDetail/>} />
+        <Route path="/detail/:media_type/:id" element={<MovieDetail/>} />
       </Rts>
     </BrowserRouter>
   )

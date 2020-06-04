@@ -11,14 +11,12 @@ const styles = makeStyles(theme => ({
     },
   },
   item: {
-    // background: 'green',
     flex: '0 0 15%',
     textAlign: 'center',
     margin: '0 5px',
     height: 150,
     transition: 'transform 250ms ease 150ms',
     '&:hover': {
-      //transform: 'scale(1.5) !important',
       '& div':{
         opacity: '1 !important',
         cursor: 'pointer'
@@ -55,7 +53,6 @@ const styles = makeStyles(theme => ({
     fontSize: 15,
     fontWeight: 'bold',
     display: 'flex',
-    justifyContent: 'left',
     width: '100%',
     textDecoration: 'none'
   },

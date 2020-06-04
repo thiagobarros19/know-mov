@@ -6,12 +6,12 @@ import Detail from '../../components/Detail';
 
 function MovieDetail() {
   
-  const { id } = useParams();
-
+  const { id, media_type } = useParams();
+  
   return (
     <>
       <Header />
-      <Detail movieId={id} />
+      <Detail movieId={id} media_type={media_type} />
     </>
   );
 }

@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-
-//import useStyles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 import SliderElement from './SliderElement'
 import ItemsCarousel from 'react-items-carousel';
 import SlideButton from './SlideButton'
 import Box from '@material-ui/core/Box';
-
+import useWindowDimensions from '../../config/useWindowDimensions'
 
 const Wrapper = withStyles({
   root:{
@@ -24,18 +22,20 @@ const Wrapper = withStyles({
 }
 })(Box);
 
-function Slider({ elements }) {
+
+
+function Slider({ elements, media_type }) {
 
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 0  ;
- // const classes = useStyles();
-
+  const { width } = useWindowDimensions();
+ 
   return (
     <Wrapper>
       <ItemsCarousel 
           requestToChangeActive={setActiveItemIndex}
           activeItemIndex={activeItemIndex}
-          numberOfCards={5}
+          numberOfCards={Math.ceil(width/375)}
           gutter={10}
           leftChevron={<SlideButton type={'prev'}/>}
           rightChevron={<SlideButton type={'next'}/>}
@@ -43,7 +43,7 @@ function Slider({ elements }) {
           chevronWidth={chevronWidth}
           infiniteLoop={true}
         >
-        {elements.map(el => el.backdrop_path ? (<SliderElement key={el.id} element={el} />): null)} 
+        {elements.map(el => el.backdrop_path ? (<SliderElement key={el.id} element={el} media_type={media_type || el.media_type} />): null)} 
       </ItemsCarousel>
     </Wrapper>
   );

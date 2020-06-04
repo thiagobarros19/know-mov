@@ -3,53 +3,44 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
-import ListIcon from '@material-ui/icons/List';
-import { IconButton, InputBase, List, ListItem, ListItemSecondaryAction, ListItemText, Checkbox} from '@material-ui/core';
+import { IconButton, InputBase, Box, Typography, Badge} from '@material-ui/core';
 import classNames from 'classnames';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import Drawer from '../Drawer'
 import useStyles from './styles';
-// import logo from '../../assets/logo.png';
-import logoKmWhite from '../../assets/KM White.png';
-// import logoKm from '../../assets/KM.png';
+import logo from '../../assets/logo.png';
 import api from '../../services/api';
 import consts from '../../consts';
 import action from '../../actions'
-import 'rc-menu/assets/index.css';
 import Tooltip from 'react-power-tooltip'
+import WhatshotIcon from '@material-ui/icons/Whatshot';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 
 function Header() {
 
   const classes = useStyles();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const desktopSize = useMediaQuery('(min-width:800px)');
 
   const [onTop, setOnTop] = useState(true);
   const [inputValue, setInputValue] = React.useState('');
   const [value, setValue] = React.useState('');
   const [options, setOptions] = React.useState([]);
   const [movies, setMovies] = React.useState({});
-  const [genres, setGenres] = useState([]);
-
-  const [checked, setChecked] = React.useState([1]);
+  const [trending, setTrending] = useState([]);
+  const [badge, setBadge] = useState(20);
 
   const [show, setShow] = React.useState(false);
+
+  const {TRENDS_DAY_URL, API_IMAGE_URL} = consts
+
 
   const showTooltip = bool => {
    setShow(bool)
   }
 
-  const handleGender= (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
-  };
 
   useEffect(() => {
     window.onscroll = function () {
@@ -62,13 +53,12 @@ function Header() {
   })
 
   useEffect(() => {
-    
-    api.get(consts.GENRE_URL).then(response => {
-      setGenres(response.data.genres)
+    api.get(TRENDS_DAY_URL).then(response => {
+      setTrending(response.data.results)
     }).catch( err =>{
       console.log(err)
     })
-  }, []);
+  }, [TRENDS_DAY_URL]);
 
 
   const search = (newInputValue) => {
@@ -100,39 +90,41 @@ function Header() {
     let element = movies.find(movie => movie.name === movieName || movie.original_title === movieName || movie.original_name === movieName)
     if (element) {
       dispatch(action.addMovie(element))
-      navigate(`/detail/${element.id}`)
+      navigate(`/detail/${element.media_type}/${element.id}`)
     }
     setValue(movieName);
   }
 
+  const handleClick = (movie) => {
+    dispatch(action.addMovie(movie))
+    navigate(`/detail/${movie.media_type}/${movie.id}`)
+  }
 
+  const removeBadge = () => {
+    setBadge(0)
+  }
 
   return (
     <header
       className={classNames(classes.navbar, {
         [classes.navbarNone]: onTop,
+        [classes.navbarMobile]: !desktopSize,
       })}
     >
+      {!desktopSize &&   <Drawer/>}
       <div className={classes.leftNavbar}>
-        <Link to="/"><img src={logoKmWhite} className={classes.logoNavbar} alt="MovieDB" /></Link>
-
-        <Link to="/" className={classes.menuListNavbar}>Início</Link>
-        <span className={classes.menuListNavbar}>Filmes</span>
-        <span className={classes.menuListNavbar}>Séries</span>
-        <span className={classes.menuListNavbar}>TV Shows</span>
+        <Link to="/"><img src={logo} className={classes.logoNavbar} alt="MovieDB" /></Link>
+        {desktopSize &&  <div>
+          <Link to="/" className={classes.menuListNavbar}>Início</Link>
+          <Link to="/movies" className={classes.menuListNavbar}>Filmes</Link>
+          <Link to="/tvshows" className={classes.menuListNavbar}>TV Shows</Link>
+        </div>}
       </div>
-
-    
-      
-
       <div className={classes.rightNavbar}>
         <div className={classes.searchBar}>
           <div className={classes.searchIcon}>
             <SearchIcon />
           </div>
-
-      
-
           <Autocomplete
             value={value}
             onChange={(event, newValue) => {
@@ -142,6 +134,7 @@ function Header() {
             onInputChange={(event, newInputValue) => {
               search(newInputValue);
             }}
+            noOptionsText='Nenhuma Resultado Encontrado'
             limitTags={1}
             id="controllable-states-demo"
             options={options}
@@ -158,70 +151,54 @@ function Header() {
               {...params}
               ref={options.length ? params.InputProps.ref : null}
               classes={{
-                input: classes.inputInput,
+                input: desktopSize ? classes.inputInput : classes.inputMobile,
               }}
+             
             />}
 
 
           />
 
         </div>
-
-        <div className={classes.filterIcon}>
-
-        <div 
-        style={{ position: 'relative' }}
-        onMouseOver={() => showTooltip(true)} 
-        onMouseLeave={() => showTooltip(false)}
-        className={classes.listCategory}
-        >
-          <IconButton >
-                  <ListIcon style={{ color: '#fff', fontSize: 35 }} />
-                </IconButton>
-                
-                <Tooltip 
-                  
-                  show={show}
-                  arrowAlign="end"
-                  position="bottom center"
-                  lineSeparated
-                  className={classes.tooltip}
-                  textBoxWidth={'225px'}
-                  hoverBackground="none"
-                  backgroundColor="rgba(0,0,0,0.5)"
-                  hoverColor="#FFF"
-                  color="#FFF"
-                >
-                  
-                    <List className={classes.root}>
-                      {genres.map((value) => {
-                        const labelId = `checkbox-list-secondary-label-${value.name}`;
+        {desktopSize && <div className={classes.filterIcon}>
+          <div 
+              className={classes.list}
+              style={{ position: 'relative' }}
+              onMouseOver={() => showTooltip(true)} 
+              onMouseLeave={() => showTooltip(false)}
+              >
+                <IconButton >
+                    <Badge badgeContent={badge} color="error" onMouseLeave={() => removeBadge()}>
+                          <WhatshotIcon style={{ color: '#fff', fontSize: 35 }} />   
+                    </Badge>
+                    </IconButton>
+                    <Tooltip 
+                      show={show}
+                      arrowAlign="end"
+                      position="bottom center"
+                      textBoxWidth="400px"
+                      hoverBackground="rgba(25,25,25,0.5)"
+                      backgroundColor="rgba(0,0,0,0.5)"
+                      hoverColor="#FFF"
+                      color="#FFF"
+                      lineSeparated='1px solid #505050'
+                    >
+                    {trending.map((movie) => {
                         return (
-                          <ListItem onClick={handleGender(value.id)} dense className={classes.listItem} key={value.id} >
-                            <ListItemText id={labelId} primary={value.name} />
-                            <ListItemSecondaryAction>
-                              <Checkbox
-                                
-                                onChange={handleGender(value.id)}
-                                checked={checked.indexOf(value.id) !== -1}
-                                inputProps={{ 'aria-labelledby': labelId }}
-                                style={{ color: "white", alignSelf:'center' }}
-                                className={classes.checkBox}
-                              />
-                            </ListItemSecondaryAction>
-                          </ListItem>
-                        );
+                          <Box key={movie.id} className={classes.boxImage} onClick={() => handleClick(movie)} >
+                              <img  alt="" src={`${API_IMAGE_URL}${movie.backdrop_path}`} className={classes.logoNavbar}/>
+                              <Box className={classes.boxDescription}>
+                              <Typography className={classes.movieTitle}>{movie.title}</Typography>
+                              <Typography className={classes.movieGenre}>{movie.release_date ? new Date(movie.release_date).getFullYear() : ''}</Typography>
+                              </Box>
+                          </Box> 
+                            );
                       })}
-                    </List>
-                  
-                </Tooltip>
-
-        </div>
-
-
-        </div>
-
-
+                      
+                      
+                    </Tooltip>
+            </div>
+            </div>}
       </div>
     </header>
   );

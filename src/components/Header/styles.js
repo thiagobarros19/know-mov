@@ -16,6 +16,10 @@ const styles = makeStyles(theme => ({
     paddingRight: 50,
     zIndex: 1,
   },
+  navbarMobile: {
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
   navbarNone:{
     background: 'linear-gradient(180deg, rgba(0,0,0,0.8), rgba(0,0,0,0))',
     transition: 'background 550ms',
@@ -23,15 +27,15 @@ const styles = makeStyles(theme => ({
   leftNavbar: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   rightNavbar: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   logoNavbar: {
-    width: 90
+    width: 90,
   },
   menuListNavbar: {
     color: '#fff',
@@ -51,15 +55,13 @@ const styles = makeStyles(theme => ({
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto',
-    },
+    marginLeft: 0,    
+  },
+  searchBarMobile: {
+    width:"20px"
   },
   searchIcon: {
-    padding: theme.spacing(0, 2),
+    padding: theme.spacing(0, 1),
     height: '100%',
     position: 'absolute',
     pointerEvents: 'none',
@@ -75,13 +77,20 @@ const styles = makeStyles(theme => ({
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
-    width: '500px',
     color: '#fff',
-    [theme.breakpoints.up('sm')]: {
-      width: '18ch',
-      '&:focus': {
-        width: '30ch',
-      },
+    width: '18ch',
+    '&:focus': {
+      width: '30ch',
+    },
+  },
+  inputMobile: {
+    padding: theme.spacing(1, 1, 1, 0),
+    paddingLeft: `calc(1em + ${theme.spacing(2)}px)`,
+    transition: theme.transitions.create('width'),
+    color: '#fff',
+    width: '0ch',
+    '&:focus': {
+      width: '16ch',
     },
   },
   filterIcon: {
@@ -97,18 +106,17 @@ const styles = makeStyles(theme => ({
       color: fade(theme.palette.common.white, 0.25),
     },
   },
-  tooltip:{
-    backgroundColor: 'yellow',
-    //opacity:0.7,
-    boxShadow: 'none',
-    width:"500px"
-  },
-  popoverBox:{
-    backgroundColor: fade(theme.palette.common.black, 1),
-    color:"white"
-  },
-  checkBox:{
-    marginTop:'5px'
+  list:{
+    cursor:'pointer',
+    '& > div': {
+      '& > div': {
+        '& > div': {
+          maxHeight:500,
+          overflow: 'auto',
+         // border:"1px solid #505050",
+        }
+      }
+    },
   },
   listItem:{
     width:"100%",
@@ -120,7 +128,34 @@ const styles = makeStyles(theme => ({
     overflow: 'auto',
     height:'50vh',
     maxHeight: 350,
-  }
+  },
+  boxImage:{
+    display:'flex',
+    flexDirection:'row',
+    alignItems:'center',
+    height:'100px'
+  },
+  boxDescription:{
+    marginLeft: '10px',
+  },
+  movieTitle: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    display: 'flex',
+    justifyContent: 'left',
+    width: '100%',
+    textDecoration: 'none'
+  },
+  movieGenre: {
+    fontSize: 12,
+    display: 'flex',
+    justifyContent: 'left',
+    textAlign: 'left',
+    width: '100%',
+    marginTop: 2,
+    color:'#C0C0C0'
+  },
+
 
 }))
 

@@ -4,10 +4,16 @@ const addMovie = (data) =>{
     }
 }
 
-const addGenre = (data) =>{
+const addGenreTv = (data) =>{
     return {
-         type: 'ADD_GENRES', genre: data 
+         type: 'ADD_GENRES_TV', genre: data 
     }
 }
 
-export default {addMovie, addGenre};
+const addGenreMovie = (data) =>{
+    return {
+         type: 'ADD_GENRES_MOVIE', genre: data 
+    }
+}
+
+export default {addMovie, addGenreTv, addGenreMovie};

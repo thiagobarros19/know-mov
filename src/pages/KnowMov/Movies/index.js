@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 
-import consts from '../../consts';
+import consts from '../../../consts';
 
-import api from '../../services/api';
-import action from '../../actions'
+import api from '../../../services/api';
+import action from '../../../actions'
 
-import useStyles from './styles';
+import useStyles from '../styles';
 import { useDispatch } from 'react-redux';
 
-import FeatureMovie from '../../components/FeatureMovie';
-import Slider from '../../components/Slider';
+import FeatureMovie from '../../../components/FeatureMovie';
+import Slider from '../../../components/Slider';
 
-function HomePage() {
+
+function Movies() {
   const [feature, setFeature] = useState({});
   const [popular, setPopular] = useState({});
   const [tendencies, setTendencies] = useState({});
@@ -21,47 +22,54 @@ function HomePage() {
   const dispatch = useDispatch();
   const classes = useStyles();
 
+  const {
+    MOVIE_URL,
+    FEATURE_URL,
+    GENRE_MOVIE_URL,
+    POPULAR_URL,
+    NOW_PLAYING_URL,
+    TOP_RATED_URL
+  }  = consts
 
   useEffect(() => {
-    api.get(consts.FEATURE_URL).then(response => {
+    api.get(`${MOVIE_URL}${FEATURE_URL}`).then(response => {
       setFeature(response.data);
     }).catch( err =>{
       console.log(err)
     })
-  }, []);
+  }, [MOVIE_URL, FEATURE_URL]);
 
   useEffect(() => {
-    api.get(consts.GENRE_URL).then(response => {
-      dispatch(action.addGenre(response.data.genres))
+    api.get(GENRE_MOVIE_URL).then(response => {
+      dispatch(action.addGenreMovie(response.data.genres))
     }).catch( err =>{
       console.log(err)
     })
-  }, [dispatch]);
+  }, [dispatch, GENRE_MOVIE_URL]);
 
   useEffect(() => {
-    api.get(consts.POPULAR_URL).then(response => {
-      console.log(response.data)
+    api.get(`${MOVIE_URL}${POPULAR_URL}`).then(response => {
       setPopular(response.data);
     }).catch( err =>{
       console.log(err)
     })
-  }, []);
+  }, [MOVIE_URL, POPULAR_URL]);
 
   useEffect(() => {
-    api.get(consts.TRENDS_URL).then(response => {
+    api.get(`${MOVIE_URL}${NOW_PLAYING_URL}`).then(response => {
       setTendencies(response.data);
     }).catch( err =>{
       console.log(err)
     })
-  }, []);
+  }, [MOVIE_URL, NOW_PLAYING_URL]);
 
   useEffect(() => {
-    api.get(consts.TOP_RATED_URL).then(response => {
+    api.get(`${MOVIE_URL}${TOP_RATED_URL}`).then(response => {
       setTopRated(response.data);
     }).catch( err =>{
       console.log(err)
     })
-  }, []);
+  }, [MOVIE_URL, TOP_RATED_URL]);
 
   useEffect(() => {
     setFeatureMovieIndex(Math.floor((Math.random() * 20)))
@@ -74,25 +82,25 @@ function HomePage() {
       <div className={classes.genreContainer}>
         <span className={classes.genreTitle}>Adicionados recentemente</span>
       </div>
-      <Slider elements={popular.results || [1,2,3]} />
+      <Slider elements={popular.results || []}  media_type={"movie"} />
       
       <div className={classes.genreContainer}>
         <span className={classes.genreTitle}>Em alta</span>
       </div>
-      <Slider elements={topRated.results || []} />
+      <Slider elements={topRated.results || []} media_type={"movie"} />
       
       <div className={classes.genreContainer}>
-        <span className={classes.genreTitle}>Tendências</span>
+        <span className={classes.genreTitle}>Ao vivo</span>
       </div>
-      <Slider elements={tendencies.results || []} />
+      <Slider elements={tendencies.results || []} media_type={"movie"} />
       
       <div className={classes.genreContainer}>
         <span className={classes.genreTitle}>Populares</span>
       </div>
-      <Slider elements={feature.results || []} />
+      <Slider elements={feature.results || []} media_type={"movie"}/>
     </>
   );
 }
 
-export default HomePage;
+export default Movies;
 

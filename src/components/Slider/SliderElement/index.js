@@ -4,21 +4,23 @@ import consts from '../../../consts';
 import useStyles from '../styles';
 import { useDispatch, useSelector } from 'react-redux';
 import action from '../../../actions'
-function SliderElement({ element }) {
+function SliderElement({ element, media_type }) {
 
   const classes = useStyles();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const allGenres = useSelector(state => state.genre.genre)
+  let allGenres = useSelector(state => state.genre.genre_movie)
   const [genres, setGenres] = useState([])
+
 
   const {
     id,
     title,
+    name,
     release_date,
+    first_air_date,
     genre_ids,
     backdrop_path,
-    //poster_path,
   } = element;
 
   let releaseDate = release_date ? release_date.substring(0, release_date.indexOf('-')) : '';
@@ -37,7 +39,7 @@ function SliderElement({ element }) {
 
   const handleClick = () => {
     dispatch(action.addMovie(element))
-    navigate(`/detail/${id}`)
+    navigate(`/detail/${element.media_type || media_type}/${id}`)
   }
 
 
@@ -47,7 +49,7 @@ function SliderElement({ element }) {
       <div className={classes.item} style={{ backgroundImage: `url(${consts.API_IMAGE_URL_SMALL}${backdrop_path})` }}>
         <div className={classes.itemInnerShadow}>
           <div className={classes.itemInfoContainer}>
-            <span className={classes.featureMovieTitle}>{title} ({releaseDate})</span>
+            <span className={classes.featureMovieTitle}>{title || name} ({new Date(releaseDate || first_air_date).getFullYear()})</span>
             <span className={classes.featureMovieGenre}>{genres.join(', ')}</span> 
           </div>
         </div>

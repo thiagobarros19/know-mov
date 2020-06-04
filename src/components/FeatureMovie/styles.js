@@ -21,10 +21,15 @@ const styles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    width: '50%',
+    width: '100%',
     padding: 50,
+    [theme.breakpoints.down('sm')]: {
+      padding: 20,
+    },
     color: '#fff',
     fontSize: 30,
+    maxWidth:1000,
+    maxHeight:450
   },
   featureMovieTitle: {
     fontSize: 30,
@@ -64,7 +69,7 @@ const styles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'left',
     flexDirection: 'column',
-    width: '100%'
+    width: '100%',
   },
   featureMovieSynopsisTitle: {
     fontSize: 20,
@@ -74,6 +79,13 @@ const styles = makeStyles(theme => ({
   featureMovieSynopsisDescription: {
     fontSize: 15,
     marginTop: 15
+  },
+  video: {
+    position: 'fixed',
+    right: 0,
+    bottom: 0,
+    minWidth: '100%',
+    minHeight: '100%',
   }
 
 }))

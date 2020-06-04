@@ -1,62 +1,72 @@
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const styles = makeStyles(theme => ({
-  background: {
-    width: '100vw',
-    height: '100vh',
+  root:{
+    display:"flex",
+    flexDirection:"column",
+    justifyContent:"center",
+    alignItems:"center"
+  },
+  backgroundMovie: {
+    width:"100%",
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover'
+  },
+  backgroundTv: {
+    width:"100%",
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
   },
   backgroundShadow: {
-    width: '100%',
-    height: '100%',
-    background: 'rgba(0,0,0,0.95)'
+    background: 'rgba(0,0,0,0.95)',
   },
   container: {
-    width: '100%',
-    height: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'   
+    justifyContent: 'left',
+    alignItems: 'center',
+    flexWrap:'wrap',
+    padding:'125px 50px',
+    [theme.breakpoints.down('sm')]: {
+      justifyContent: 'center',
+      padding:'100px 20px 20px 20px',
+    },
   },
   movieCoverContainer: {
-    width: '30%',
-    height: '100%',
-    padding: 50,
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  movieCover: {
-    maxWidth: '100%',
-    minWidth: 300,
-    maxHeight: '80%',
-    height: 'auto'
-  },
-  movieDetail: {
-    width: '70%',
-    height: '100%',
-    padding: 50,
-    display: 'flex',
-    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    color: '#fff'
+    padding:10,
+  },
+  movieCover: {
+    height:"40vw",
+    minHeight: 500,
+    maxHeight:650
+  },
+  movieDetail: {
+    padding:"20px 20px",
+    maxWidth: 800 ,
+    width:'40vw',
+    minWidth: 350,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    color: '#fff',
   },
   movieTitle: {
     fontSize: 30,
     fontWeight: 'bold',
     display: 'flex',
     justifyContent: 'left',
-    width: '100%',
   },
   movieGenre: {
     fontSize: 18,
     display: 'flex',
     justifyContent: 'left',
-    width: '100%',
+    width: '50%',
     marginTop: 15
   },
   movieRatingContainer: {
@@ -92,6 +102,12 @@ const styles = makeStyles(theme => ({
   movieSynopsisDescription: {
     fontSize: 15,
     marginTop: 15
+  },
+  seasonTitle:{
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#fff',
+    margin:"10px"
   }
 
 }));

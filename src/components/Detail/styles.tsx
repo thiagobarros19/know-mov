@@ -5,13 +5,13 @@ const styles = makeStyles(theme => ({
     display:"flex",
     flexDirection:"column",
     justifyContent:"center",
-    alignItems:"center"
+    alignItems:"center",
   },
   backgroundMovie: {
     width:"100%",
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover'
+    backgroundSize: 'cover',
   },
   backgroundTv: {
     width:"100%",
@@ -41,8 +41,8 @@ const styles = makeStyles(theme => ({
     padding:10,
   },
   movieCover: {
-    height:"40vw",
-    minHeight: 500,
+    height:"75vw",
+    minHeight: 450,
     maxHeight:650
   },
   movieDetail: {

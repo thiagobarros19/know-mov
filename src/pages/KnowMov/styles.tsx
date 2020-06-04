@@ -92,6 +92,7 @@ const styles = makeStyles(theme => ({
     alignItems:'center',
     padding: '10px 0',
     flexGrow: 1,
+    maxWidth:"300px"
   }
 }))
 

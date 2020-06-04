@@ -35,7 +35,7 @@ const styles = makeStyles(theme => ({
       width:"200px",
       marginLeft:"0px"
     },
-   
+    maxWidth:"300px"
   },
   buttonGroupPopularType:{
     borderRadius:"50px",
@@ -47,6 +47,7 @@ const styles = makeStyles(theme => ({
       marginLeft:"0px"
     },
     alignItems:"flex-start",
+    maxWidth:"300px"
   },
   buttonGroupType:{
     borderRadius:"50px",
@@ -58,6 +59,7 @@ const styles = makeStyles(theme => ({
     },
     display:'flex',
     marginLeft:"20px",
+    maxWidth:"300px"
   },
   button:{ 
     transition: 'background 750ms',
@@ -92,7 +94,7 @@ const styles = makeStyles(theme => ({
     alignItems:'center',
     padding: '10px 0',
     flexGrow: 1,
-    maxWidth:"300px"
+    maxWidth:"600px"
   }
 }))
 

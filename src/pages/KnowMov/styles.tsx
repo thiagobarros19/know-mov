@@ -77,7 +77,7 @@ const styles = makeStyles(theme => ({
   },
   buttonDisabled:{
     background:fade(theme.palette.common.black, 0.8),
-    color: fade(theme.palette.common.white, 0.75),
+    color: fade(theme.palette.common.white, 1),
     borderRadius:"50px",
     '&:hover ':{
       color: fade(theme.palette.common.white, 0.75),

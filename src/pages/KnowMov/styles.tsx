@@ -28,7 +28,6 @@ const styles = makeStyles(theme => ({
   },
   buttonGroup:{
     borderRadius:"50px",
-   // background: 'rgba(33,34,44,1)',
     width:"300px",
     display:'flex',
     [theme.breakpoints.down('sm')]: {
@@ -39,7 +38,6 @@ const styles = makeStyles(theme => ({
   },
   buttonGroupPopularType:{
     borderRadius:"50px",
-    //background: 'rgba(33,34,44,1)',
     width:"300px",
     display:'flex',
     [theme.breakpoints.down('sm')]: {
@@ -51,7 +49,6 @@ const styles = makeStyles(theme => ({
   },
   buttonGroupType:{
     borderRadius:"50px",
-  //  background: 'rgba(33,34,44,1)',
     width:"300px",
     [theme.breakpoints.down('sm')]: {
       width:"150px",
@@ -62,7 +59,6 @@ const styles = makeStyles(theme => ({
     maxWidth:"300px",
   },
   button:{ 
-   // transition: 'background 750ms',
     borderRadius:"50px",
     color: 'black',
     backgroundColor:"white",
@@ -96,7 +92,7 @@ const styles = makeStyles(theme => ({
     padding: '10px 0',
     flexGrow: 1,
     maxWidth:"800px",
-  }
+  },
 }))
 
 export default styles;  

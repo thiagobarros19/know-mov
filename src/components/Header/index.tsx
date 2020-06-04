@@ -110,6 +110,7 @@ function Header() {
         [classes.navbarNone]: onTop,
         [classes.navbarMobile]: !desktopSize,
       })}
+      data-testid="header"
     >
       {!desktopSize &&   <Drawer/>}
       <div className={classes.leftNavbar}>
@@ -168,7 +169,7 @@ function Header() {
               onMouseLeave={() => showTooltip(false)}
               >
                 <IconButton >
-                    <Badge badgeContent={badge} color="error" onMouseLeave={() => removeBadge()}>
+                    <Badge badgeContent={badge} color="error"  onMouseLeave={() => removeBadge()}>
                           <WhatshotIcon style={{ color: '#fff', fontSize: 35 }} />   
                     </Badge>
                     </IconButton>

@@ -9,7 +9,7 @@ function Footer() {
 
   return (
     <footer className={classes.container}>
-      <span style={{marginRight:"10px"}}><b>Created by:</b> Thiago Silva - 2020</span>
+      <span style={{marginRight:"10px"}} data-testid="footer"><b>Created by:</b> Thiago Silva - 2020</span>
       <a href="https://www.instagram.com/thiagorck/" target="blank" className={classes.instagramIcon}><InstagramIcon /></a>
       <a href="https://github.com/thiagobarros19" target="blank" className={classes.instagramIcon}><GitHubIcon /></a>
     </footer>);

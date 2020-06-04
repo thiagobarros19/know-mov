@@ -13,7 +13,7 @@ function Season({seasons}) {
   const {API_IMAGE_URL_SMALL} = consts
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} data-testid="season">
       {seasons.map(({poster_path, name, air_date, episode_count}) =>{
         return (
           <Card className={classes.season}>
@@ -43,3 +43,7 @@ function Season({seasons}) {
 }
 
 export default Season;
+
+export interface SeasonProps {
+  Season: Array<any>;
+}

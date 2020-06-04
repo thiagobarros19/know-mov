@@ -31,7 +31,7 @@ function Slider({ elements, media_type }: SliderProps) {
   const { width } = useWindowDimensions();
 
   return (
-    <Wrapper>
+    <Wrapper data-testid="slider">
       <ItemsCarousel 
           requestToChangeActive={setActiveItemIndex}
           activeItemIndex={activeItemIndex}

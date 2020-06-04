@@ -32,7 +32,7 @@ function Detail({ movieId, media_type }) {
   let userScore = movie.vote_average * 10;
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} data-testid="detail">
     <div className={classNames(classes.backgroundMovie, {
       [classes.backgroundTv]: media_type === 'tv',
     })}
@@ -51,7 +51,7 @@ function Detail({ movieId, media_type }) {
             <span className={classes.movieGenre}>{movie.genres ? movie.genres.map(m => m.name).join(', ') : ''}</span>
             {movie.vote_average !== 0 && 
               <div className={classes.movieRatingContainer}>
-                <span className={classes.movieRating}>Avaliação dos usuários</span>
+                <span className={classes.movieRating} data-testid="evaluation">Avaliação dos usuários</span>
                 <Circle 
                   progress={userScore || 0}
                   animate={true}

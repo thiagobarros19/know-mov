@@ -26,7 +26,7 @@ export default function MyDrawer() {
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      <List>
+      <List  >
         {[{name:'Inicio', route:'/'}, {name:'Filmes',route:'/movies'}, {name:'Tv Shows',route:'/tvshows'}].map(({name,route}, index) => (
           <ListItem className={classes.listItem} button key={name}>
             <Link to={route} className={classes.item}>{name}</Link>
@@ -39,17 +39,17 @@ export default function MyDrawer() {
   return (
 
      
-    <div key={'left'}>
+    <div key={'left'}  data-testid="drawer">
         
         <IconButton onClick={toggleDrawer(true)}>
             <ReorderIcon style={{ color: '#fff', fontSize: 35 }} />   
         </IconButton>
         <Drawer
+       
             className={classes.drawer}
             anchor={'left'}
             open={open}
             onClose={toggleDrawer(false)}
-
             >
         {list()}
         </Drawer>

@@ -9,6 +9,7 @@ function SlideButton ({ onClick, type }: SlideProps) {
   const classes = useStyles();
   return (
     <button
+      data-testid="button"
       className={classNames(classes.slideButton, {
         [classes.next]: type==='next',
         [classes.prev]: type==='prev',

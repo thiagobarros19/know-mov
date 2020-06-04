@@ -43,10 +43,10 @@ function FeatureMovie(props) {
   console.log(props.movie)
   return (
     backdrop_path ?
-    <div className={classes.featureMovie} style={{ backgroundImage: `url(${consts.API_IMAGE_URL}/${backdrop_path})` }}>
+    <div className={classes.featureMovie} style={{ backgroundImage: `url(${consts.API_IMAGE_URL}/${backdrop_path})` }} data-testid="feature">
       <div className={classes.featureMovieShadow}>
         <div className={classes.featureMovieDetail}>
-          <span className={classes.featureMovieTitle}>{title || name} ({new Date(releaseDate || first_air_date).getFullYear()})</span>
+          <span className={classes.featureMovieTitle} data-testid="title">{title || name} ({new Date(releaseDate || first_air_date).getFullYear()})</span>
           <span className={classes.featureMovieGenre}>{genres.join(', ')}</span>
           <div className={classes.featureMovieRatingContainer}>
             <span className={classes.featureMovieRating}>Avaliação dos usuários</span>

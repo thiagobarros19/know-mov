@@ -65,11 +65,11 @@ const styles = makeStyles(theme => ({
    // transition: 'background 750ms',
     borderRadius:"50px",
     color: 'black',
+    backgroundColor:"white",
     fontSize: 15,
     [theme.breakpoints.down('sm')]: {
       fontSize: 10,
     },
-    backgroundColor:"white",
     '&:hover':{
       backgroundColor:"white",
       color: 'black',
@@ -83,7 +83,7 @@ const styles = makeStyles(theme => ({
       fontSize: 10,
     },
     '&:hover':{
-      backgroundColor:"rgb(150,150,150,0.9)",
+      backgroundColor:"rgb(150,150,150,0.8)",
       color: 'white',
     }
   },

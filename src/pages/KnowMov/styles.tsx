@@ -1,4 +1,4 @@
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const styles = makeStyles(theme => ({
   genreContainer:{
@@ -28,18 +28,18 @@ const styles = makeStyles(theme => ({
   },
   buttonGroup:{
     borderRadius:"50px",
-    background: 'rgba(33,34,44,1)',
+   // background: 'rgba(33,34,44,1)',
     width:"300px",
     display:'flex',
     [theme.breakpoints.down('sm')]: {
       width:"200px",
       marginLeft:"0px"
     },
-    maxWidth:"300px"
+    maxWidth:"300px",
   },
   buttonGroupPopularType:{
     borderRadius:"50px",
-    background: 'rgba(33,34,44,1)',
+    //background: 'rgba(33,34,44,1)',
     width:"300px",
     display:'flex',
     [theme.breakpoints.down('sm')]: {
@@ -47,11 +47,11 @@ const styles = makeStyles(theme => ({
       marginLeft:"0px"
     },
     alignItems:"flex-start",
-    maxWidth:"300px"
+    maxWidth:"300px",
   },
   buttonGroupType:{
     borderRadius:"50px",
-    background: 'rgba(33,34,44,1)',
+  //  background: 'rgba(33,34,44,1)',
     width:"300px",
     [theme.breakpoints.down('sm')]: {
       width:"150px",
@@ -59,33 +59,33 @@ const styles = makeStyles(theme => ({
     },
     display:'flex',
     marginLeft:"20px",
-    maxWidth:"300px"
+    maxWidth:"300px",
   },
   button:{ 
-    transition: 'background 750ms',
+   // transition: 'background 750ms',
     borderRadius:"50px",
-    color: fade(theme.palette.common.black, 1),
-    background:fade(theme.palette.common.white, 1),
-    '&:hover ':{
-      color: fade(theme.palette.common.black, 1),
-      background:fade(theme.palette.common.white, 1),
-    },
+    color: 'black',
     fontSize: 15,
     [theme.breakpoints.down('sm')]: {
       fontSize: 10,
     },
+    backgroundColor:"white",
+    '&:hover':{
+      backgroundColor:"white",
+      color: 'black',
+    }
   },
   buttonDisabled:{
-    background:fade(theme.palette.common.black, 0.8),
-    color: fade(theme.palette.common.white, 1),
+    backgroundColor:"rgb(150,150,150,0.1)",
+    color: 'white',
     borderRadius:"50px",
-    '&:hover ':{
-      color: fade(theme.palette.common.white, 0.75),
-      background:fade(theme.palette.common.black, 0.5),
-    },
     [theme.breakpoints.down('sm')]: {
       fontSize: 10,
     },
+    '&:hover':{
+      backgroundColor:"rgb(150,150,150,0.5)",
+      color: 'white',
+    }
   },
   buttonG:{
     display:"flex",

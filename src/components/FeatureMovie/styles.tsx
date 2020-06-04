@@ -37,7 +37,10 @@ const styles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'left',
     width: '100%',
-    marginTop: 15
+    marginTop: 15,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 24,
+    },
   },
   featureMovieGenre: {
     fontSize: 18,

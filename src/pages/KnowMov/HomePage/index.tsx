@@ -7,7 +7,6 @@ import action from '../../../actions'
 
 import useStyles from '../styles';
 import { useDispatch } from 'react-redux';
-
 import FeatureMovie from '../../../components/FeatureMovie';
 import Slider from '../../../components/Slider';
 import {Button, Typography} from '@material-ui/core';

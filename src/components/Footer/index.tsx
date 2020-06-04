@@ -1,6 +1,6 @@
 import React from 'react';
 import InstagramIcon from '@material-ui/icons/Instagram';
-
+import GitHubIcon from '@material-ui/icons/GitHub';
 import useStyles from './styles';
 
 function Footer() {
@@ -9,8 +9,9 @@ function Footer() {
 
   return (
     <footer className={classes.container}>
-      <span><b>Created by:</b> Thiago Silva - 2020</span>
+      <span style={{marginRight:"10px"}}><b>Created by:</b> Thiago Silva - 2020</span>
       <a href="https://www.instagram.com/thiagorck/" target="blank" className={classes.instagramIcon}><InstagramIcon /></a>
+      <a href="https://github.com/thiagobarros19" target="blank" className={classes.instagramIcon}><GitHubIcon /></a>
     </footer>);
 }
 

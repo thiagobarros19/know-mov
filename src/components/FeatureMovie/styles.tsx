@@ -5,6 +5,7 @@ const styles = makeStyles(theme => ({
   featureMovie: {
     height: '70vh',
     width: '100%',
+    minHeight:'70vh',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',

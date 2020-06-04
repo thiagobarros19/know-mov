@@ -76,8 +76,9 @@ const styles = makeStyles(theme => ({
     },
   },
   buttonDisabled:{
-    background:fade(theme.palette.common.black, 0.5),
-    color: fade(theme.palette.common.white, 0.5),
+    background:fade(theme.palette.common.black, 0.8),
+    color: fade(theme.palette.common.white, 0.75),
+    borderRadius:"50px",
     '&:hover ':{
       color: fade(theme.palette.common.white, 0.75),
       background:fade(theme.palette.common.black, 0.5),
@@ -94,8 +95,8 @@ const styles = makeStyles(theme => ({
     alignItems:'center',
     padding: '10px 0',
     flexGrow: 1,
-    maxWidth:"800px"
+    maxWidth:"800px",
   }
 }))
 
-export default styles;
+export default styles;  

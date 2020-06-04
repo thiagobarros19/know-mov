@@ -40,7 +40,7 @@ function FeatureMovie(props) {
   let userScore = vote_average * 10;
 
   const classes = useStyles();
-
+  console.log(props.movie)
   return (
     backdrop_path ?
     <div className={classes.featureMovie} style={{ backgroundImage: `url(${consts.API_IMAGE_URL}/${backdrop_path})` }}>

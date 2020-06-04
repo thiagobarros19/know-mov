@@ -8,7 +8,7 @@ const styles = makeStyles(theme => ({
     },
     listItem:{
       '&:hover':{
-          backgroundColor: fade(theme.palette.common.black, 0.9),
+          backgroundColor: fade(theme.palette.common.white, 0.2),
           color:fade(theme.palette.common.white, 1)
           }
     },
@@ -22,7 +22,7 @@ const styles = makeStyles(theme => ({
     },
     drawer:{
         '& > div':{
-          background:fade(theme.palette.common.black, 0.6),
+          background:fade(theme.palette.common.black, 0.5),
           color:fade(theme.palette.common.white, 0.8)
         }
     }

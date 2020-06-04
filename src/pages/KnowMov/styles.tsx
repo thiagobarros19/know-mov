@@ -76,14 +76,14 @@ const styles = makeStyles(theme => ({
     }
   },
   buttonDisabled:{
-    backgroundColor:"rgb(150,150,150,0.1)",
+    backgroundColor:"rgb(150,150,150,0.4)",
     color: 'white',
     borderRadius:"50px",
     [theme.breakpoints.down('sm')]: {
       fontSize: 10,
     },
     '&:hover':{
-      backgroundColor:"rgb(150,150,150,0.5)",
+      backgroundColor:"rgb(150,150,150,0.9)",
       color: 'white',
     }
   },

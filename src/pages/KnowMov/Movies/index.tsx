@@ -13,11 +13,11 @@ import Slider from '../../../components/Slider';
 
 
 function Movies() {
-  const [feature, setFeature] = useState({});
-  const [popular, setPopular] = useState({});
-  const [tendencies, setTendencies] = useState({});
-  const [topRated, setTopRated] = useState({});
-  const [featureMovieIndex, setFeatureMovieIndex] = useState(null);
+  const [feature, setFeature] = useState([]);
+  const [popular, setPopular] = useState([]);
+  const [tendencies, setTendencies] = useState([]);
+  const [topRated, setTopRated] = useState([]);
+  const [featureMovieIndex, setFeatureMovieIndex] = useState(0);
   
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -33,7 +33,7 @@ function Movies() {
 
   useEffect(() => {
     api.get(`${MOVIE_URL}${FEATURE_URL}`).then(response => {
-      setFeature(response.data);
+      setFeature(response.data.results);
     }).catch( err =>{
       console.log(err)
     })
@@ -49,7 +49,7 @@ function Movies() {
 
   useEffect(() => {
     api.get(`${MOVIE_URL}${POPULAR_URL}`).then(response => {
-      setPopular(response.data);
+      setPopular(response.data.results);
     }).catch( err =>{
       console.log(err)
     })
@@ -57,7 +57,7 @@ function Movies() {
 
   useEffect(() => {
     api.get(`${MOVIE_URL}${NOW_PLAYING_URL}`).then(response => {
-      setTendencies(response.data);
+      setTendencies(response.data.results);
     }).catch( err =>{
       console.log(err)
     })
@@ -65,7 +65,7 @@ function Movies() {
 
   useEffect(() => {
     api.get(`${MOVIE_URL}${TOP_RATED_URL}`).then(response => {
-      setTopRated(response.data);
+      setTopRated(response.data.results);
     }).catch( err =>{
       console.log(err)
     })
@@ -77,27 +77,27 @@ function Movies() {
 
   return (
     <>
-      <FeatureMovie movie={topRated.results && featureMovieIndex ? topRated.results[featureMovieIndex] : []} />
+      <FeatureMovie movie={topRated.length && featureMovieIndex ? topRated[featureMovieIndex] : {}} />
 
       <div className={classes.genreContainer}>
         <span className={classes.genreTitle}>Adicionados recentemente</span>
       </div>
-      <Slider elements={popular.results || []}  media_type={"movie"} />
+      <Slider elements={popular || []}  media_type={"movie"} />
       
       <div className={classes.genreContainer}>
         <span className={classes.genreTitle}>Em alta</span>
       </div>
-      <Slider elements={topRated.results || []} media_type={"movie"} />
+      <Slider elements={topRated || []} media_type={"movie"} />
       
       <div className={classes.genreContainer}>
         <span className={classes.genreTitle}>Ao vivo</span>
       </div>
-      <Slider elements={tendencies.results || []} media_type={"movie"} />
+      <Slider elements={tendencies || []} media_type={"movie"} />
       
       <div className={classes.genreContainer}>
         <span className={classes.genreTitle}>Populares</span>
       </div>
-      <Slider elements={feature.results || []} media_type={"movie"}/>
+      <Slider elements={feature || []} media_type={"movie"}/>
     </>
   );
 }

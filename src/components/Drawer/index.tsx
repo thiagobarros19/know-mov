@@ -39,9 +39,9 @@ export default function MyDrawer() {
   return (
 
      
-    <div key={'left'} className={classes.root}>
+    <div key={'left'}>
         
-        <IconButton onClick={toggleDrawer('left', true)}>
+        <IconButton onClick={toggleDrawer(true)}>
             <ReorderIcon style={{ color: '#fff', fontSize: 35 }} />   
         </IconButton>
         <Drawer
@@ -49,9 +49,9 @@ export default function MyDrawer() {
             anchor={'left'}
             open={open}
             onClose={toggleDrawer(false)}
-            onOpen={toggleDrawer(true)}
+
             >
-        {list('left')}
+        {list()}
         </Drawer>
     </div>
 

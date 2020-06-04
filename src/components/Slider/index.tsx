@@ -24,12 +24,12 @@ const Wrapper = withStyles({
 
 
 
-function Slider({ elements, media_type }) {
+function Slider({ elements, media_type }: SliderProps) {
 
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 0  ;
   const { width } = useWindowDimensions();
- 
+
   return (
     <Wrapper>
       <ItemsCarousel 
@@ -37,8 +37,8 @@ function Slider({ elements, media_type }) {
           activeItemIndex={activeItemIndex}
           numberOfCards={Math.ceil(width/375)}
           gutter={10}
-          leftChevron={<SlideButton type={'prev'}/>}
-          rightChevron={<SlideButton type={'next'}/>}
+          leftChevron={<SlideButton  type={'prev'}/>}
+          rightChevron={<SlideButton  type={'next'}/>}
           outsideChevron
           chevronWidth={chevronWidth}
           infiniteLoop={true}
@@ -50,3 +50,8 @@ function Slider({ elements, media_type }) {
 }
 
 export default Slider;
+
+export interface SliderProps {
+  elements: Array<any>;
+  media_type?: string;
+}

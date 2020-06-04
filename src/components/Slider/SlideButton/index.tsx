@@ -4,7 +4,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import useStyles from './styles';
 import classNames from 'classnames';
 
-function SlideButton ({ onClick, type }) {
+function SlideButton ({ onClick, type }: SlideProps) {
 
   const classes = useStyles();
   return (
@@ -13,7 +13,7 @@ function SlideButton ({ onClick, type }) {
         [classes.next]: type==='next',
         [classes.prev]: type==='prev',
       })} 
-      onClick={onClick}>
+      onClick={(onClick)}>
       <span>
         {type==='next' && <ArrowForwardIosIcon/>}
         {type==='prev' && <ArrowBackIosIcon/>}
@@ -23,3 +23,8 @@ function SlideButton ({ onClick, type }) {
 
 }
 export default SlideButton;
+
+export interface SlideProps {
+  onClick?: (event: React.MouseEvent<any>) => void,
+  type: string;
+}

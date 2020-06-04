@@ -7,7 +7,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 function FeatureMovie(props) {
 
-  let allGenres = useSelector(state => state.genre.genre_movie)
+  let allGenres = useSelector((state: any) => state.genre.genre_movie)
   const desktopSize = useMediaQuery('(min-width:600px)');
   
   const [genres, setGenres] = useState([])
@@ -51,11 +51,11 @@ function FeatureMovie(props) {
           <div className={classes.featureMovieRatingContainer}>
             <span className={classes.featureMovieRating}>Avaliação dos usuários</span>
             <Circle
-              className={classes.featureMovieRatingCircle}
+             
               progress={userScore || 0}
               animate={true}
-              size={50}
-              lineWidth={35}
+              size={'50px'}
+              lineWidth={'35px'}
               progressColor={'#008080'}
               bgColor={'#fff'}
               textColor={'#fff'}

@@ -11,12 +11,13 @@ import { useDispatch } from 'react-redux';
 import FeatureMovie from '../../../components/FeatureMovie';
 import Slider from '../../../components/Slider';
 
+
 function TvShows() {
-  const [onTheAir, setOnTheAir] = useState({});
-  const [popular, setPopular] = useState({});
-  const [today, setToday] = useState({});
-  const [topRated, setTopRated] = useState({});
-  const [featureMovieIndex, setFeatureMovieIndex] = useState(null);
+  const [onTheAir, setOnTheAir] = useState([]);
+  const [popular, setPopular] = useState([]);
+  const [today, setToday] = useState([]);
+  const [topRated, setTopRated] = useState([]);
+  const [featureMovieIndex, setFeatureMovieIndex] = useState(0);
   
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -33,7 +34,7 @@ function TvShows() {
   // Feature
   useEffect(() => {
     api.get(`${TV_URL}${ON_THE_AIR_URL}`).then(response => {
-      setOnTheAir(response.data);
+      setOnTheAir(response.data.results);
     }).catch( err =>{
       console.log(err)
     })
@@ -51,7 +52,7 @@ function TvShows() {
   //Popular
   useEffect(() => {
     api.get(`${TV_URL}${POPULAR_URL}`).then(response => {
-      setPopular(response.data);
+      setPopular(response.data.results);
     }).catch( err =>{
       console.log(err)
     })
@@ -60,7 +61,7 @@ function TvShows() {
   //Tendencies
   useEffect(() => {
     api.get(`${TV_URL}${TV_AIRING_TODAY_URL}`).then(response => {
-      setToday(response.data);
+      setToday(response.data.results);
     }).catch( err =>{
       console.log(err)
     })
@@ -69,7 +70,7 @@ function TvShows() {
   //Top rade
   useEffect(() => {
     api.get(`${TV_URL}${TOP_RATED_URL}`).then(response => {
-      setTopRated(response.data);
+      setTopRated(response.data.results);
     }).catch( err =>{
       console.log(err)
     })
@@ -77,33 +78,34 @@ function TvShows() {
 
   //Feature movie index
   useEffect(() => {
-    setFeatureMovieIndex(Math.floor((Math.random() * 20)))
+    let randomNumber: number = Math.floor((Math.random() * 20))
+    setFeatureMovieIndex(randomNumber)
   }, []);
 
 
   return (
     <>
-      <FeatureMovie movie={popular.results && featureMovieIndex ? popular.results[featureMovieIndex] : []} />
+      <FeatureMovie movie={popular.length && featureMovieIndex ? popular[featureMovieIndex] : {}} />
 
       <div className={classes.genreContainer}>
         <span className={classes.genreTitle}>No ar</span>
       </div>
-      <Slider elements={onTheAir.results || []} media_type={"tv"}/>
+      <Slider elements={onTheAir || []} media_type={"tv"}/>
       
       <div className={classes.genreContainer} >
         <span className={classes.genreTitle}>Em alta</span>
       </div>
-      <Slider elements={topRated.results || []} media_type={"tv"}/>
+      <Slider elements={topRated || []} media_type={"tv"}/>
       
       <div className={classes.genreContainer}>
         <span className={classes.genreTitle}>Hoje</span>
       </div>
-      <Slider elements={today.results || []} media_type={"tv"}/>
+      <Slider elements={today || []} media_type={"tv"}/>
       
       <div className={classes.genreContainer}>
         <span className={classes.genreTitle}>Populares</span>
       </div>
-      <Slider elements={popular.results || []} media_type={"tv"}/>
+      <Slider elements={popular || []} media_type={"tv"}/>
     </>
   );
 }

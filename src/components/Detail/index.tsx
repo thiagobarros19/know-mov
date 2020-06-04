@@ -13,7 +13,7 @@ function Detail({ movieId, media_type }) {
 
   const classes = useStyles();
 
-  const [movie, setMovie] = useState(useSelector(state => state.movie.movie));
+  const [movie, setMovie] = useState(useSelector((state: any) => state.movie.movie));
   const id = movieId;
 
   const  {API_KEY,API_LANGUAGE} = consts
@@ -53,11 +53,10 @@ function Detail({ movieId, media_type }) {
               <div className={classes.movieRatingContainer}>
                 <span className={classes.movieRating}>Avaliação dos usuários</span>
                 <Circle 
-                  className={classes.movieRatingCircle}
                   progress={userScore || 0}
                   animate={true}
-                  size={50}
-                  lineWidth={35}
+                  size={'50px'}
+                  lineWidth={'35px'}
                   progressColor={'#008080'}
                   bgColor={'#fff'}
                   textColor={'#fff'}

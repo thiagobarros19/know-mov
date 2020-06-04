@@ -28,7 +28,7 @@ function Header() {
   const [inputValue, setInputValue] = React.useState('');
   const [value, setValue] = React.useState('');
   const [options, setOptions] = React.useState([]);
-  const [movies, setMovies] = React.useState({});
+  const [movies, setMovies] = React.useState([]);
   const [trending, setTrending] = useState([]);
   const [badge, setBadge] = useState(20);
 
@@ -37,7 +37,7 @@ function Header() {
   const {TRENDS_DAY_URL, API_IMAGE_URL} = consts
 
 
-  const showTooltip = bool => {
+  const showTooltip = (bool: boolean) => {
    setShow(bool)
   }
 
@@ -61,7 +61,7 @@ function Header() {
   }, [TRENDS_DAY_URL]);
 
 
-  const search = (newInputValue) => {
+  const search = (newInputValue: string) => {
     if (newInputValue !== '') {
       api.get(consts.SEARCH_MOVIE, {
         params: {
@@ -71,7 +71,7 @@ function Header() {
         }
       }).then(response => {
 
-        const moviesName = response.data.results.map(value => value.name || value.original_title || value.original_name)
+        const moviesName = response.data.results.map((value: any) => value.name || value.original_title || value.original_name)
         setOptions(moviesName.slice(0, 10))
         setMovies(response.data.results.slice(0, 10))
 
@@ -86,8 +86,8 @@ function Header() {
     setInputValue(newInputValue);
   }
 
-  const handleMovie = (movieName) => {
-    let element = movies.find(movie => movie.name === movieName || movie.original_title === movieName || movie.original_name === movieName)
+  const handleMovie = (movieName: string) => {
+    let element: any = movies.find((movie: any) => movie.name === movieName || movie.original_title === movieName || movie.original_name === movieName)
     if (element) {
       dispatch(action.addMovie(element))
       navigate(`/detail/${element.media_type}/${element.id}`)
@@ -95,7 +95,7 @@ function Header() {
     setValue(movieName);
   }
 
-  const handleClick = (movie) => {
+  const handleClick = (movie: any) => {
     dispatch(action.addMovie(movie))
     navigate(`/detail/${movie.media_type}/${movie.id}`)
   }
@@ -128,7 +128,7 @@ function Header() {
           <Autocomplete
             value={value}
             onChange={(event, newValue) => {
-              handleMovie(newValue)
+              handleMovie(newValue || '')
             }}
             inputValue={inputValue}
             onInputChange={(event, newInputValue) => {
@@ -183,7 +183,7 @@ function Header() {
                       color="#FFF"
                       lineSeparated='1px solid #505050'
                     >
-                    {trending.map((movie) => {
+                    {trending.map((movie: any) => {
                         return (
                           <Box key={movie.id} className={classes.boxImage} onClick={() => handleClick(movie)} >
                               <img  alt="" src={`${API_IMAGE_URL}${movie.backdrop_path}`} className={classes.logoNavbar}/>

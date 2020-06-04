@@ -4,12 +4,12 @@ import consts from '../../../consts';
 import useStyles from '../styles';
 import { useDispatch, useSelector } from 'react-redux';
 import action from '../../../actions'
-function SliderElement({ element, media_type }) {
+function SliderElement({ element, media_type }: SliderElementProps) {
 
   const classes = useStyles();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  let allGenres = useSelector(state => state.genre.genre_movie)
+  let allGenres = useSelector((state: any) => state.genre.genre_movie)
   const [genres, setGenres] = useState([])
 
 
@@ -59,3 +59,8 @@ function SliderElement({ element, media_type }) {
 }
 
 export default SliderElement;
+
+export interface SliderElementProps {
+  element: any;
+  media_type?: string;
+}

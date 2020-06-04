@@ -17,8 +17,7 @@ import classNames from 'classnames';
 function HomePage() {
   const [popular, setPopular] = useState([]);
   const [trends, setTrends] = useState([]);
-  //const [topRated, setTopRated] = useState([]);
-  const [featureMovieIndex, setFeatureMovieIndex] = useState(null);
+  const [featureMovieIndex, setFeatureMovieIndex] = useState(0);
   const [time, setTime] = React.useState('day');
   const [type, setType] = React.useState('all');
   const [popularType, setPopularType] = React.useState('movie');
@@ -28,13 +27,6 @@ function HomePage() {
   const classes = useStyles();
   const {API_URL, TRENDS, API_KEY, GENRE_MOVIE_URL, MOST_POPULAR_URL, DISCOVER} = consts;
 
-/*    useEffect(() => {
-    api.get(consts.FEATURE_URL).then(response => {
-      setFeature(response.data);
-    }).catch( err =>{
-      console.log(err)
-    })
-  }, []); */
 
   useEffect(() => {
     api.get(GENRE_MOVIE_URL).then(response => {
@@ -65,14 +57,6 @@ function HomePage() {
     })
   }, [time,type,API_URL,TRENDS,API_KEY]);
 
- /*  useEffect(() => {
-    api.get(consts.TOP_RATED_URL).then(response => {
-      setTopRated(response.data);
-    }).catch( err =>{
-      console.log(err)
-    })
-  }, []); */
-
   useEffect(() => {
     setFeatureMovieIndex(Math.floor((Math.random() * 20)))
   }, []);
@@ -92,7 +76,7 @@ function HomePage() {
   
   return (
     <>
-      <FeatureMovie movie={trends.length && featureMovieIndex ? trends[featureMovieIndex] : []} />
+      <FeatureMovie movie={trends.length && featureMovieIndex ? trends[featureMovieIndex] : {}} />
 
       <div className={classes.genreContainer}>
       <Typography className={classes.genreTitle}>Os Mais Populares</Typography>
@@ -135,7 +119,7 @@ function HomePage() {
           </ButtonGroup>
         </div>
       </div>
-      <Slider elements={trends || []} />
+      <Slider elements={trends || []}/>
       
     </>
   );

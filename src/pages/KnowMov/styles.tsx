@@ -90,8 +90,8 @@ const styles = makeStyles(theme => ({
     justifyContent:'flex-start',
     flexWrap: 'wrap',
     alignItems:'center',
-    padding: '10px 0'
- 
+    padding: '10px 0',
+    flexGrow: 1,
   }
 }))
 

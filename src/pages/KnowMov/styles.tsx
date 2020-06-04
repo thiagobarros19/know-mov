@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { fade, makeStyles } from '@material-ui/core/styles';
 
 const styles = makeStyles(theme => ({
   genreContainer:{
@@ -71,8 +71,8 @@ const styles = makeStyles(theme => ({
       fontSize: 10,
     },
     '&:hover':{
-      backgroundColor:"white",
-      color: 'black',
+      backgroundColor: fade(theme.palette.common.white, 0.9),
+      color:fade(theme.palette.common.black, 1)
     }
   },
   buttonDisabled:{
@@ -83,9 +83,9 @@ const styles = makeStyles(theme => ({
       fontSize: 10,
     },
     '&:hover':{
-      backgroundColor:"rgb(150,150,150,0.8)",
-      color: 'white',
-    }
+      backgroundColor: fade(theme.palette.common.white, 0.4),
+      color:fade(theme.palette.common.white, 1)
+      }
   },
   buttonG:{
     display:"flex",
